@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>علي نوماس الفتلاوي - سيرة ذاتية</title>
+    <style>
+        :root {
+            --bg-color: #f4f7f6;
+            --main-grad: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            --text-main: #333;
+            --text-side: #ecf0f1;
+            --card-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        body {
+            background-color: var(--bg-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .cv-wrapper {
+            width: 100%;
+            max-width: 900px;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        /* العمود الجانبي */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .side-card {
+            background: var(--main-grad);
+            color: var(--text-side);
+            padding: 30px 20px;
+            border-radius: 15px;
+            box-shadow: var(--card-shadow);
+            text-align: center;
+        }
+
+        .profile-pic {
+            width: 150px;
+            height: 180px;
+            margin: 0 auto 15px;
+            border-radius: 12px;
+            object-fit: cover;      
+            border: 4px solid rgba(255,255,255,0.3);
+            background: #eee;
+            display: block;         
+        }
+
+        .upload-trigger { 
+            display: inline-block;
+            font-size: 11px; 
+            background: rgba(255,255,255,0.1); 
+            padding: 8px 12px; 
+            cursor: pointer; 
+            border-radius: 5px;
+            margin-top: 5px;
+            transition: 0.3s;
+            min-height: 20px;
+        }
+        .upload-trigger:hover { background: rgba(255,255,255,0.2); }
+
+        .side-title { border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 10px; margin-top: 25px; text-align: right; }
+        .contact-entry { text-align: right; margin-bottom: 12px; font-size: 13px; opacity: 0.9; }
+
+        .skills-group {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: var(--card-shadow);
+        }
+        .skills-group h3 { color: var(--text-main); font-size: 16px; border-right: 4px solid #3498db; padding-right: 10px; }
+        .skills-container { display: flex; flex-wrap: wrap; gap: 8px; }
+        .skill-tag { background: #e1eaf2; color: #2a5298; padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; }
+
+        /* العمود الرئيسي */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .summary-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: var(--card-shadow);
+        }
+        .summary-card h1 { margin: 0; color: var(--text-main); font-size: 28px; }
+        .summary-card p { color: #3498db; font-weight: bold; font-size: 16px; margin: 5px 0 15px; }
+        .summary-text { font-size: 14px; color: #666; line-height: 1.8; }
+
+        .section-card {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: var(--card-shadow);
+        }
+        .section-title { font-size: 18px; color: var(--text-main); margin-bottom: 15px; border-right: 4px solid #3498db; padding-right: 10px; }
+
+        .experience-item { margin-bottom: 20px; }
+        .job-header { display: flex; justify-content: space-between; font-weight: bold; }
+        .list-style { font-size: 13px; color: #444; padding-right: 20px; margin: 10px 0 0; }
+        .list-style li { margin-bottom: 8px; }
+
+        /* --- قسم الخزانات --- */
+        .vault-section {
+            width: 100%;
+            max-width: 900px;
+            margin-top: 20px;
+        }
+        .vault-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        .vault-card {
+            position: relative;
+            height: 220px;
+            background: var(--main-grad);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            cursor: pointer;
+        }
+        .vault-text {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 500;
+            transition: opacity 0.5s ease;
+            z-index: 2;
+            background: rgba(0,0,0,0.2); 
+        }
+        .vault-image {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            z-index: 1;
+        }
+        .vault-card:hover .vault-text { opacity: 0; }
+        .vault-card:hover .vault-image { opacity: 1; }
+
+        @media (max-width: 768px) {
+            .cv-wrapper { grid-template-columns: 1fr; }
+            .vault-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 480px) {
+            .vault-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cv-wrapper">
+        <aside class="sidebar">
+            <div class="side-card">
+                <img id="profileImg" class="profile-pic" src="الصورة الشخصية.jpeg" alt="الصورة الشخصية">
+                <label class="upload-trigger"><input type="file" id="imgInput" hidden accept="image/*"></label>
+                
+                <h3 class="side-title">معلومات الاتصال</h3>
+                <div class="contact-entry">07725984419</div>
+                <div class="contact-entry">كربلاء المقدسة، قضاء الهندية</div>
+                <div class="contact-entry">تولد: 24/6/1988</div>
+            </div>
+
+            <div class="skills-group">
+                <h3>المؤهلات العلمية</h3>
+                <div class="side-item" style="font-size: 13px; margin-bottom: 10px;">
+                    <b>ماجستير (2021)</b>: علوم تربوية ونفسية - جامعة كربلاء
+                </div>
+                <div class="side-item" style="font-size: 13px;">
+                    <b>بكالوريوس (2013)</b>: علوم تربوية ونفسية - جامعة القادسية
+                </div>
+            </div>
+
+            <div class="skills-group">
+                <h3>المهارات الاحترافية</h3>
+                <div class="skills-container">
+                    <span class="skill-tag">البحث الميداني</span>
+                    <span class="skill-tag">إدارة ملفات الحماية</span>
+                    <span class="skill-tag">حماية حقوق الطفل</span>
+                    <span class="skill-tag">العلاقات العامة</span>
+                    <span class="skill-tag">التحليل التربوي</span>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="summary-card">
+                <h1>علي نوماس الفتلاوي</h1>
+                <p>معاون رئيس أبحاث | باحث اجتماعي متخصص</p>
+                <div class="summary-text">
+                    باحث اجتماعي في وزارة العمل والشؤون الاجتماعية بخبرة ميدانية واسعة تتجاوز 10 سنوات. متميز في إدارة ملفات الحماية الاجتماعية وشؤون الطفولة، ومعالجة القضايا المجتمعية المعقدة.
+                </div>
+            </div>
+
+            <div class="section-card">
+                <h2 class="section-title">الخبرة المهنية والإنجازات</h2>
+                <div class="experience-item">
+                    <div class="job-header"><span>باحث اجتماعي</span><span>وزارة العمل</span></div>
+                    <div style="font-size: 12px; color: #7f8c8d;">كربلاء المقدسة | 2013 - حتى الآن</div>
+                    <ul class="list-style">
+                        <li>قيادة وإنجاز ما يقارب <b>6000 زيارة ميدانية</b> للعوائل المتعففة.</li>
+                        <li>إتمام شمول <b>3000 مستفيد</b> براتب الرعاية الاجتماعية بنجاح.</li>
+                        <li>إدارة ملفات البحث الميداني لآلاف العوائل بدقة عالية.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <h2 class="section-title">المناصب الحالية</h2>
+                <div class="skills-container" style="justify-content: right;">
+                    <span class="skill-tag">مشرف وحدة حماية الطفل (كربلاء)</span>
+                    <span class="skill-tag">عضو لجنة مكافحة التسول بكربلاء</span>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <h2 class="section-title">المؤتمرات والمشاركات العلمية</h2>
+                <ul class="list-style">
+                    <li>مشارك في ندوات الحد من ظاهرة التسول (بناية حقوق الإنسان بكربلاء).</li>
+                    <li>محاضر في ندوة ظواهر التسرب المدرسي للطلاب (وزارة العمل).</li>
+                    <li>اجتياز ورش تدريبية تخصصية في حماية الطفل (النجف الأشرف).</li>
+                </ul>
+            </div>
+        </main>
+    </div>
+
+    <div class="vault-section">
+        <h2 class="section-title" style="background:white; padding:10px; border-radius:10px; text-align:center;">معرض النشاطات والميدان</h2>
+        <div class="vault-grid">
+            <div class="vault-card">
+                <div class="vault-text">
+                    <span>مؤتمر لجنة مكافحة التسول</span>
+                    <input type="file" hidden accept="image/*" onchange="previewVault(this, 'vImg1')">
+                </div>
+                <img id="vImg1" class="vault-image" src="WhatsApp Image 2026-05-10 at 10.48.10 PM.jpeg">
+            </div>
+            <div class="vault-card">
+                <div class="vault-text">
+                    <span>احدى عملي الميداني للعوائل المتعففة كباحث اجتماعي</span>
+                    <input type="file" hidden accept="image/*" onchange="previewVault(this, 'vImg2')">
+                </div>
+                <img id="vImg2" class="vault-image" src="WhatsApp Image 22026-05-10 at 10.48.10 PM.jpeg">
+            </div>
+            <div class="vault-card">
+                <div class="vault-text">
+                    <span>ورشة تدريب الباحثين لمشروع حماية الطفل</span>
+                    <input type="file" hidden accept="image/*" onchange="previewVault(this, 'vImg3')">
+                </div>
+                <img id="vImg3" class="vault-image" src="WhatsApp Image 32026-05-10 at 10.48.10 PM.jpeg">
+            </div>
+            <div class="vault-card">
+                <div class="vault-text">
+                    <span>ندوه لمستفيدي الرعاية حول مخاطر تسرب اطفالهم من المدارس</span>
+                    <input type="file" hidden accept="image/*" onchange="previewVault(this, 'vImg4')">
+                </div>
+                <img id="vImg4" class="vault-image" src="WhatsApp Image 42026-05-10 at 10.48.11 PM.jpeg">
+            </div>
+            <div class="vault-card">
+                <div class="vault-text">
+                    <span>زيارات ميدانية للشمول بالرعاية</span>
+                    <input type="file" hidden accept="image/*" onchange="previewVault(this, 'vImg5')">
+                </div>
+                <img id="vImg5" class="vault-image" src="WhatsApp Image 52026-05-10 at 10.48.11 PM.jpeg">
+            </div>
+            <div class="vault-card">
+                <div class="vault-text">
+                    <span>زيارات ميدانية للرعاية في المناطق الصحراوية</span>
+                    <input type="file" hidden accept="image/*" onchange="previewVault(this, 'vImg6')">
+                </div>
+                <img id="vImg6" class="vault-image" src="WhatsApp Image 62026-05-10 at 10.48.11 PM.jpeg">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const imgInput = document.getElementById('imgInput');
+        const profileImg = document.getElementById('profileImg');
+
+        imgInput.addEventListener('change', function() {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    profileImg.src = e.target.result;
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        function previewVault(input, targetId) {
+            const file = input.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const imgElement = document.getElementById(targetId);
+                    imgElement.src = e.target.result;
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
+</body>
+</html>
